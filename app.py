@@ -6,7 +6,7 @@ from phi.tools.serpapi_tools import SerpApiTools
 
 # Initialize page config
 st.set_page_config(
-    page_title="AI Travel Planner",
+    page_title="Kuya Globe Travel Planner",
     page_icon="🌎",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -182,7 +182,7 @@ try:
     )
 
     # Main UI
-    st.title("🌎 AI Travel Planner")
+    st.title("🌎 Kuya Globe Travel Planner")
     
     st.markdown(f"""
         <div class="travel-summary">

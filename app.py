@@ -6,7 +6,7 @@ from phi.tools.serpapi_tools import SerpApiTools
 
 # Initialize page config
 st.set_page_config(
-    page_title="Kuya Globe",
+    page_title="AI Travel Planner",
     page_icon="🌎",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -130,17 +130,18 @@ loading_container = st.empty()
 try:
     # Set API keys in environment variables
     os.environ["GROQ_API_KEY"] = groq_api_key
-    os.environ["SERP_API_KEY"] = serpapi_key
+    if serpapi_key:
+        os.environ["SERP_API_KEY"] = serpapi_key
 
     # ── Agent 1: Travel Planner ──────────────────────────────────────────────
     travel_agent = Agent(
         name="Travel Planner",
         model=Groq(id="llama-3.3-70b-versatile"),
-        tools=[SerpApiTools()],
+        tools=[SerpApiTools()] if serpapi_key else [],
         instructions=[
             "You are a travel planning assistant.",
             "Help users plan their trips by researching destinations, finding attractions, suggesting accommodations, and providing transportation options.",
-            "Give relevant live links for each place and hotel you recommend by searching the internet.",
+            "Give relevant live links for each place and hotel you recommend by searching the internet (only if SerpAPI key is provided).",
             "Always verify information is current before making recommendations.",
             "Format your response in clear markdown with headings and bullet points."
         ],
@@ -181,7 +182,7 @@ try:
     )
 
     # Main UI
-    st.title("🌎 Kuya Globe Travel Planner")
+    st.title("🌎 AI Travel Planner")
     
     st.markdown(f"""
         <div class="travel-summary">
